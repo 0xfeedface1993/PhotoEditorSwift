@@ -35,6 +35,9 @@
                             <constraint firstItem="QLv-EK-BzZ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="NNp-F4-fXC"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="selectBtn" destination="QLv-EK-BzZ" id="Ths-GL-UyW"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

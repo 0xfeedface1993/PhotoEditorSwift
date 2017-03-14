@@ -10,12 +10,16 @@ import UIKit
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate , UINavigationControllerDelegate {
 
+    @IBOutlet weak var selectBtn: UIButton!
     let imageView = UIImageView()
+    private var imageConstraints:[NSLayoutConstraint]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.view.addSubview(imageView)
+        
+        imageView.translatesAutoresizingMaskIntoConstraints = false
     }
 
     override func didReceiveMemoryWarning() {
@@ -82,9 +86,35 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate , UINavi
     
     //MARK: Closure
     func loadImage(_ image: UIImage) -> Void {
-        imageView.frame = CGRect(x: 0, y: 0, width: image.size.width > view.frame.size.width ? view.frame.size.width:image.size.width, height: (image.size.width > view.frame.size.width ? view.frame.size.width:image.size.width) * image.size.height / image.size.width);
         imageView.image = image;
-        imageView.center = view.center;
+        if let constraints = imageConstraints {
+            view.removeConstraints(constraints)
+        }
+        imageConstraints = caculateConstraints(image: image)
+        view.addConstraints(imageConstraints!)
+    }
+    
+    //计算约束
+    private func caculateConstraints(image: UIImage) -> [NSLayoutConstraint] {
+        let (width, height) = factor(imageSize: image.size, viewSize: CGSize(width: view.frame.size.width, height: view.frame.size.height - 163 ))
+        
+        return NSLayoutConstraint.constraints(withVisualFormat: "V:|->=20-[image(==height)]-20-[btn]", options: .alignAllCenterX, metrics: ["height":height], views: ["image":imageView, "btn":selectBtn]) +
+               NSLayoutConstraint.constraints(withVisualFormat: "H:[image(==width)]", options: [], metrics: ["width":width], views: ["image":imageView])
+    }
+    
+    //根据面积大小比较获得图片的大小
+    private func factor(imageSize: CGSize, viewSize: CGSize) -> (CGFloat, CGFloat) {
+        var tmp:CGFloat = 1.0
+        let tmpViewWidth = viewSize.width
+        let tmpViewHeight = viewSize.height
+        while true {
+            let tmpImageWidth = imageSize.width * tmp
+            let tmpImageHeight = imageSize.height * tmp
+            if tmpImageWidth * tmpImageHeight <= tmpViewWidth * tmpViewHeight {
+                return (tmpImageWidth, tmpImageHeight)
+            }
+            tmp *= 0.9
+        }
     }
 }
 
