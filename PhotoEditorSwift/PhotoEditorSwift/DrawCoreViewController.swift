@@ -160,13 +160,12 @@ class DrawCoreViewController: UIViewController {
     
     //MARK: 保存
     @objc fileprivate func save(_ button : UIButton) {
-        let alert = UIAlertView(title: "请稍等", message: "在载入图片", delegate: nil, cancelButtonTitle: nil)
-        alert.show()
+        SVProgressHUD.show(withStatus: "正在载入图片")
         drawRawView()
         if backClourse != nil {
             backClourse!(originImage)
         }
-        alert.dismiss(withClickedButtonIndex: 0, animated: true)
+        SVProgressHUD.dismiss()
         goBack(button)
     }
     
@@ -269,7 +268,7 @@ class DrawCoreViewController: UIViewController {
         let touch = touches.first
         if let imageView = touch?.view as? UIImageView, imageView == drawView {
             movePoint = (touch?.location(in: imageView))!
-            DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
+            DispatchQueue.global().async(execute: {
                 DispatchQueue.main.async(execute: {
                     self.drawNewWay(.draw, rectType: self.rectType, color: self.color)
                 })
@@ -281,7 +280,7 @@ class DrawCoreViewController: UIViewController {
         let touch = touches.first
         if let imageView = touch?.view as? UIImageView, imageView == drawView {
             endPoint = (touch?.location(in: imageView))!
-            DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
+            DispatchQueue.global().async(execute: {
                 DispatchQueue.main.async(execute: {
                     self.drawNewWay(.middle, rectType: self.rectType, color: self.color)
                 })
