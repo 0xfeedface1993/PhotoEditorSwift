@@ -15,7 +15,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "102"
             endingLineNumber = "102"
-            landmarkName = "caculateConstraints(image:view:)"
+            landmarkName = "caculateConstraints(image:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
