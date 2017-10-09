@@ -367,11 +367,11 @@ class DrawCoreViewController: UIViewController {
         let paragraphStyle = NSParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
         paragraphStyle.lineBreakMode = .byCharWrapping
         paragraphStyle.alignment = .center
-        let attributes = [NSForegroundColorAttributeName:color,//设置文字颜色
-            NSFontAttributeName:font,//设置文字的字体
-            NSKernAttributeName:0,//文字之间的字距
-        NSParagraphStyleAttributeName:paragraphStyle//设置文字的样式
-        ] as [String : Any]
+        let attributes = [NSAttributedStringKey.foregroundColor:color,//设置文字颜色
+            NSAttributedStringKey.font:font,//设置文字的字体
+            NSAttributedStringKey.kern:0,//文字之间的字距
+        NSAttributedStringKey.paragraphStyle:paragraphStyle//设置文字的样式
+            ] as [NSAttributedStringKey : Any]
         let newText = text as NSString
         let szieNewText = newText.boundingRect(with: rect.size, options: .usesLineFragmentOrigin, attributes: attributes, context: nil).size
         let newRect = CGRect(x: rect.origin.x, y: rect.origin.y, width: szieNewText.width, height: szieNewText.height)
