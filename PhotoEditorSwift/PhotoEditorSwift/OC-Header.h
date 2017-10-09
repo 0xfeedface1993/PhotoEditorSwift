@@ -9,6 +9,5 @@
 #ifndef OC_Header_h
 #define OC_Header_h
 
-#import "SVProgressHUD.h"
 
 #endif /* OC_Header_h */

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import EditorCore
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate , UINavigationControllerDelegate {
 
@@ -80,7 +81,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate , UINavi
         picker.dismiss(animated: false, completion: nil)
         
         if let drawView = DrawCoreViewController(image: theImage, clourse: loadImage) {
-            self.present(drawView, animated: true, completion: nil)
+            present(drawView, animated: true, completion: nil)
         }
     }
     
